@@ -1,0 +1,40 @@
+.tab-container {
+  width: 500px;
+  height: 50px;
+  border: 1px solid #dfe5ec;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  .tab {
+    display: inline-block;
+    width: 33.3%;
+    height: 100%;
+    text-align: center;
+    font-family: Open Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    border: 1px solid #dfe5ec;
+    box-sizing: border-box;
+    color: #4a4a4a;
+    &:after {
+      content: "";
+      height: 100%;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    &:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+    &:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+  }
+
+  .active {
+    background-color: #2196f3;
+    border: 1px solid #2196f3;
+    color: #FFFFFF;
+  }
+}
