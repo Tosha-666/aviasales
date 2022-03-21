@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.scss";
 import { Ticket } from "../Ticket";
 import { Tabs } from "../Tabs";
@@ -7,14 +7,26 @@ import Aviasalesapi from '../../api'
 
 function App() {
   const apiService = new Aviasalesapi()
+  const [searchId, setSearchId]=useState('')
 
   useEffect(()=>{
-    getData()
-  },[])
+    getId()
+     },[])
 
-  const getData=async()=>{
-    const arr = await apiService.getResourse()
-    console.log(arr);
+  useEffect(()=>{
+    getTickets()
+  },[searchId])
+  
+  const getId=async()=>{
+    const searchID = await apiService.getResourse()
+    console.log(searchID);
+    setSearchId(searchID) 
+  }
+
+  const getTickets=async()=>{
+    console.log(searchId.searchId);
+    const ticketsArr=await apiService.getTickets(searchId.searchId)
+    console.log(ticketsArr); 
   }
   return (
     <main className="container">
