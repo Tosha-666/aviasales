@@ -15,7 +15,8 @@ export default class Aviasalesapi {
       if (body.total_results === 0) {
         throw new Error('not found')
       } else {
-        return body
+        this.getTickets(body.searchId)
+        // return body
       }
     }
   async getTickets(searchID){
