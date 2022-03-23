@@ -4,17 +4,15 @@ import { connect } from "react-redux";
 import * as actions from '../../actions'
 
 const Tabs = ({filterTab,changeFilterTab}) => {
-  const tabClass=()=>{
 
-  }
   return (
     <div className="tab-container">
       <span 
-      className="tab"
+      className={`tab ${(filterTab==='cheaper')&&'active'}` }
       onClick={()=>changeFilterTab('cheaper')}>САМЫЙ ДЕШЕВЫЙ</span>
-      <span className={`tab ${filterTab='fastest'&&'active'}` }
+      <span className={`tab ${(filterTab==='fastest')&&'active'}` }
        onClick={()=>changeFilterTab('fastest')}>САМЫЙ БЫСТРЫЙ</span>
-      <span className={`tab ${filterTab='optimal'&&'active'}` }
+      <span className={`tab ${filterTab==='optimal'&&'active'}` }
       onClick={()=>changeFilterTab('optimal')}>ОПТИМАЛЬНЫЙ</span>
     </div>
   );
