@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import "./App.scss";
 import { Ticket } from "../Ticket";
 import { Tabs } from "../Tabs";
 import { FilterBar } from "../FiltersBar";
 import Aviasalesapi from '../../api'
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 function App() {
   const apiService = new Aviasalesapi()
