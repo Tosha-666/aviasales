@@ -1,8 +1,14 @@
-const ticketsLoaded=(ticketsArr)=>{
-    return{
-        type:'loaded',
-        payload:ticketsArr
+import axios from "axios"
+
+const ticketsLoaded=()=>{
+    return dispatch =>{
+        dispatch(loading())
     }
+    // axios.get
+    // return{
+    //     type:'FETCH_TICKETS_REQUEST',
+    //     payload:ticketsArr
+    // }
 }
 
 const searchId=(searchId)=>{
@@ -46,4 +52,11 @@ const changeFilterTab=(filter)=>{
         payload:filter
     }
 }
-export {ticketsLoaded,searchId,filterAll,filterWithout,filterWithOne,filterWithTwo,filterWithThree, changeFilterTab}
+
+const loading=()=>{
+    return{
+        type:'LOADING'
+    }
+}
+
+export {ticketsLoaded,searchId,filterAll,filterWithout,filterWithOne,filterWithTwo,filterWithThree, changeFilterTab,loading}

@@ -1,5 +1,6 @@
 const initialState={
     tickets:[],
+    loading:false,
     all:false,
     without:false,
     withOne:false,
@@ -10,7 +11,7 @@ const initialState={
 
 const reduser = (state=initialState, action)=>{
     switch (action.type) {
-        case 'loaded':
+        case 'FETCH_TICKETS_REQUEST':
             return{
                 tickets:action.payload
             }
@@ -58,8 +59,12 @@ const reduser = (state=initialState, action)=>{
             }
             default:
                 return state
-                
-            
+
+        case 'LOADING':
+            return{
+                ...state,
+                loading:!state.loading
+            }
     }
 }
 export {reduser}
