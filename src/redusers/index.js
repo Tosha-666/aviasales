@@ -6,7 +6,9 @@ const initialState={
     withOne:false,
     withTwo:false,
     withThree:false,
-    filterTab:'fastest'
+    filterTab:'fastest',
+    error:false,
+    errorIndicator:''
 }
 
 const reduser = (state=initialState, action)=>{
@@ -15,7 +17,14 @@ const reduser = (state=initialState, action)=>{
             return{
                 tickets:action.payload
             }
-
+        case 'FETCH_TICKETS_SUCCESS':
+            return{ 
+                ...state, tickets:action.payload,loading:false,error:false
+            }
+        case 'FETCH_TICKETS_FAILURE':
+            return{
+                ...state,error:true,errorIndicator:action.payload
+            }
         case 'all':
             return state.all?{...state,all:false, without:false, withOne:false,withTwo:false,withThree:false }:{
                 ...state, all:true, without:true, withOne:true,withTwo:true,withThree:true}
@@ -63,7 +72,7 @@ const reduser = (state=initialState, action)=>{
         case 'LOADING':
             return{
                 ...state,
-                loading:!state.loading
+                loading:true
             }
     }
 }

@@ -4,15 +4,16 @@ import { Ticket } from "../Ticket";
 import { Tabs } from "../Tabs";
 import { FilterBar } from "../FiltersBar";
 import Aviasalesapi from '../../api'
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import * as actions from '../../actions'
 
-function App() {
-  const apiService = new Aviasalesapi()
+function App({ticketsLoaded}) {
+  // const apiService = new Aviasalesapi()
   // const [searchId, setSearchId]=useState('')
 
   useEffect(()=>{
-    apiService.getResourse()
-     },[])
+    ticketsLoaded()
+     },[ticketsLoaded])
 
   // useEffect(()=>{
   //   getTickets()
@@ -37,7 +38,8 @@ function App() {
       <div className="content-bar">
       <Tabs />
       <Ticket />
-      </div></div>
+      </div>
+      </div>
       
       
      
@@ -45,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, actions)(App);

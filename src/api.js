@@ -3,7 +3,7 @@
 export default class Aviasalesapi {
     baseURL ='https://front-test.beta.aviasales.ru/'
   
-
+   tickets=[]
 
     async getResourse() {
       const res = await fetch(
@@ -26,14 +26,31 @@ export default class Aviasalesapi {
       (`${this.baseURL}tickets?searchId=${searchID}`)
     )
     if (!res.ok) {
-      // console.log(res)
-      throw new Error(res.status)
-    }
+      if(res.status===500){
+        setInterval(() => {
+          this.getTickets(searchID)
+        }, 1000); 
+      }
+      if (res.status===404){
+        throw new Error(res.status)
+      }
+      
+    }else{
     const body=await res.json()
-    if (body.total_results === 0) {
-      throw new Error('not found')
-    } else {
-      return body
+     console.log(body);
+      if(body.stop===false){
+        console.log(body.tickets);
+        this.getTickets(searchID)
+        console.log(this.tickets);
+        this.tickets.push(...body.tickets)
+        }
+        
+      else{
+        console.log(this.tickets);
+        return this.tickets
+      }
+      // console.log(body);
+      //  return body
     }
   }
 
