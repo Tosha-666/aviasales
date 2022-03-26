@@ -5,31 +5,46 @@ const apiService = new Aviasalesapi()
 const ticketsLoaded=()=>{
     return dispatch =>{
         dispatch(loading())
-        apiService.getResourse()
-        //  axios.get('https://front-test.beta.aviasales.ru/search')
-        //     .then (res=>{
-        //         console.log(res.data.searchId);
-        //         // const searchId=res.data.searchId
-        //         let tickets=[]
-        //         const getTickets=axios.get(`https://front-test.beta.aviasales.ru/tickets?searchId=${res.data.searchId}`)
-        //             .then(res=>{
-        //                 console.log(res);
-        //                     if (res.data.stop===false){   
-        //                         console.log(res);
+        // apiService.getResourse()
+         axios.get('https://front-test.beta.aviasales.ru/search')
+            .then (res=>{
+                const searchId=res.data.searchId
+                console.log(res.data.searchId);
+                // const searchId=res.data.searchId
+                let iterrateNumber=10
+                let tickets=[]
+                const getTickets=(requireId)=>{
+                    axios.get(`https://front-test.beta.aviasales.ru/tickets?searchId=${requireId}`)
+                    .then(res=>{
+                        console.log(res);
+                        if (res.status===200){ 
+                            if (res.data.stop===false){   
+                                console.log(res);
                                 
-        //                         tickets=tickets.push.res.data.tickets
-        //                         console.log(tickets);
-        //                         getTickets()
-        //                     } if (res.data.stop===true) {
-        //                         console.log();
-        //                         dispatch(addTickets(tickets))
-        //                     }
-        //                 }
-        //             )
-        //             .catch(err=> {
-        //                 dispatch(addFailure(err.message));
-        //               })
-        //     })
+                                tickets.push(...res.data.tickets)
+                                console.log(tickets);
+                                getTickets(searchId)
+                            } if (res.data.stop===true) {
+                                tickets.push(...res.data.tickets)
+                                // console.log(searchId);
+                                dispatch(addTickets(tickets))
+                            }}
+                        if(res.status===500){
+                            if(iterrateNumber>0)
+                            console.log(res);
+                            iterrateNumber-=1
+                            getTickets(searchId)
+                           }
+                        }
+                    )
+                    .catch(err=> {
+                        if (err.response.status){
+                            getTickets(searchId)
+                        }
+                         dispatch(addFailure(err.message));
+                      })}
+                      getTickets(searchId)
+            })
     }
    
     // return{

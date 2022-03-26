@@ -22,32 +22,33 @@ export default class Aviasalesapi {
       }
     }
   async getTickets(searchID){
-    const res = await fetch(
-      (`${this.baseURL}tickets?searchId=${searchID}`)
-    )
+    const res = await fetch(`${this.baseURL}tickets?searchId=${searchID}` )
     if (!res.ok) {
       if(res.status===500){
-        setInterval(() => {
+         setInterval(() => {
           this.getTickets(searchID)
         }, 1000); 
       }
       if (res.status===404){
-        throw new Error(res.status)
+        console.log(res);
+
+        return this.tickets 
+        // throw new Error(res.status)
       }
       
     }else{
-    const body=await res.json()
-     console.log(body);
-      if(body.stop===false){
-        console.log(body.tickets);
-        this.getTickets(searchID)
+        const body=await res.json()
+          console.log(body);
+            if(body.stop===false){
+        // console.log(body.tickets);
+            this.tickets.push(...body.tickets)
+              this.getTickets(searchID)
+        // console.log(this.tickets);
+                
+        }else{
         console.log(this.tickets);
-        this.tickets.push(...body.tickets)
-        }
-        
-      else{
-        console.log(this.tickets);
-        return this.tickets
+          this.tickets.push(...body.tickets)
+            return this.tickets
       }
       // console.log(body);
       //  return body
