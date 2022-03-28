@@ -3,18 +3,19 @@ import "./App.scss";
 import { Ticket } from "../Ticket";
 import { Tabs } from "../Tabs";
 import { FilterBar } from "../FiltersBar";
-import Aviasalesapi from '../../api'
+import { TicketList } from "../TicketList";
+// import Aviasalesapi from '../../api'
 import { connect } from "react-redux";
 import * as actions from '../../actions'
 
 function App({ticketsLoaded}) {
   // const apiService = new Aviasalesapi()
   // const [searchId, setSearchId]=useState('')
-
+//----------------------------
   useEffect(()=>{
     ticketsLoaded()
      },[ticketsLoaded])
-
+//----------------------------
   // useEffect(()=>{
   //   getTickets()
   // },[searchId])
@@ -37,7 +38,7 @@ function App({ticketsLoaded}) {
       <FilterBar />
       <div className="content-bar">
       <Tabs />
-      <Ticket />
+      <TicketList />
       </div>
       </div>
       

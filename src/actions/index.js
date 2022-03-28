@@ -1,56 +1,48 @@
-import axios from "axios"
-import Aviasalesapi from "../api"
-const apiService = new Aviasalesapi()
+// import Aviasalesapi from "../api"
+import API from '../api'
+// const apiService = new Aviasalesapi()
 
 const ticketsLoaded=()=>{
     return dispatch =>{
         dispatch(loading())
         // apiService.getResourse()
-         axios.get('https://front-test.beta.aviasales.ru/search')
+          API.get('search')
             .then (res=>{
                 const searchId=res.data.searchId
-                console.log(res.data.searchId);
-                // const searchId=res.data.searchId
                 let iterrateNumber=10
                 let tickets=[]
                 const getTickets=(requireId)=>{
-                    axios.get(`https://front-test.beta.aviasales.ru/tickets?searchId=${requireId}`)
+                    API.get(`tickets?searchId=${requireId}`)
                     .then(res=>{
                         console.log(res);
                         if (res.status===200){ 
                             if (res.data.stop===false){   
-                                console.log(res);
-                                
                                 tickets.push(...res.data.tickets)
-                                console.log(tickets);
                                 getTickets(searchId)
                             } if (res.data.stop===true) {
                                 tickets.push(...res.data.tickets)
-                                // console.log(searchId);
+                                console.log(tickets);
                                 dispatch(addTickets(tickets))
                             }}
-                        if(res.status===500){
-                            if(iterrateNumber>0)
-                            console.log(res);
-                            iterrateNumber-=1
-                            getTickets(searchId)
-                           }
                         }
                     )
                     .catch(err=> {
-                        if (err.response.status){
-                            getTickets(searchId)
+                        if (err.response.status===500){
+                            if (iterrateNumber>0){
+                                iterrateNumber-=1
+                                getTickets(searchId)
+                            }else {
+                                dispatch(addFailure(err.message))
+                                console.log(err.response.status)
+                            }
+                        if (err.response.status===404){
+                            dispatch(addFailure(err.message))
                         }
-                         dispatch(addFailure(err.message));
+                            }
                       })}
                       getTickets(searchId)
             })
     }
-   
-    // return{
-    //     type:'FETCH_TICKETS_REQUEST',
-    //     payload:ticketsArr
-    // }
 }
 
 const addFailure=(err)=>{
