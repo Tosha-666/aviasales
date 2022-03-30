@@ -10,7 +10,7 @@ const getfilteredItems=(tickets)=>{
       console.log(al);
       return tickets}
     if(without){return null}
-    if(one){return tickets.filter((ticket)=>ticket.segments.foreEach(segment=>segment.stops.length===1))}
+    // if(one){return tickets.filter((ticket)=>ticket.segments.foreEach(segment=>segment.stops.length===1))}
     // if(withTwo){return tickets.filter((ticket)=>ticket.segments.foreEach(segment=>segment.stops.length===2))}
     // if(withThree){return tickets.filter((ticket)=>ticket.segments.foreEach(segment=>segment.stops.length===3))}
 
