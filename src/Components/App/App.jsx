@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import "./App.scss";
-import { Ticket } from "../Ticket";
 import { Tabs } from "../Tabs";
 import { FilterBar } from "../FiltersBar";
 import { TicketList } from "../TicketList";

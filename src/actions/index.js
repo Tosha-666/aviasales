@@ -14,7 +14,7 @@ const ticketsLoaded=()=>{
                 const getTickets=(requireId)=>{
                     API.get(`tickets?searchId=${requireId}`)
                     .then(res=>{
-                        console.log(res);
+                        // console.log(res);
                         if (res.status===200){ 
                             if (res.data.stop===false){   
                                 tickets.push(...res.data.tickets)

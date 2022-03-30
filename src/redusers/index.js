@@ -1,7 +1,7 @@
 const initialState={
     tickets:[],
-    loading:false,
-    all:false,
+    loading:true,
+    all:true,
     without:false,
     withOne:false,
     withTwo:false,
