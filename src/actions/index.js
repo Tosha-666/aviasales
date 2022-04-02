@@ -17,12 +17,13 @@ const ticketsLoaded=()=>{
                         // console.log(res);
                         if (res.status===200){ 
                             if (res.data.stop===false){   
-                                tickets.push(...res.data.tickets)
+                                // tickets.push(...res.data.tickets)
+                                dispatch(addTickets(res.data.tickets))
                                 getTickets(searchId)
                             } if (res.data.stop===true) {
-                                tickets.push(...res.data.tickets)
+                                // tickets.push(...res.data.tickets)
                                 console.log(tickets);
-                                dispatch(addTickets(tickets))
+                                dispatch(addTickets(res.data.tickets))
                             }}
                         }
                     )

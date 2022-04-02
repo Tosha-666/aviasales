@@ -4,35 +4,40 @@ import {Ticket} from '../Ticket'
 import {Spinner} from '../Spinner'
 import * as actions from '../../actions'
 
-const TicketList=({tickets, al, zero, one, two, three,load})=>{
+const TicketList=({tickets, al, zero, one, two, three,load,tab})=>{
 const getfilteredItems=(tickets)=>{
   const fiteredTickets=[]
-  const filterRel=[]
-  if (one){filterRel.push(1)}else {filterRel.splice(filterRel.indexOf(1),1) }
-  if (two){filterRel.push(2)}else {filterRel.splice(filterRel.indexOf(2),1) }
-  if (three){filterRel.push(3)}else {filterRel.splice(filterRel.indexOf(3),1) }
 
   if(al){fiteredTickets.push(...tickets)}else
-    {fiteredTickets.push(...tickets.filter((ticket)=>ticket.segments.every(segment=>segment.stops.length===filterRel[1]||segment.stops.length===filterRel[2]||segment.stops.length===filterRel[3])))}
-  
-  // if (one)
-  // if (two){fiteredTickets.push(...tickets.filter((ticket)=>ticket.segments.every(segment=>segment.stops.length===2)))}
-  // if (three){fiteredTickets.push(...tickets.filter((ticket)=>ticket.segments.every(segment=>segment.stops.length===3)))}
-  console.log(fiteredTickets);
-  console.log(filterRel);
+    {fiteredTickets.push(...tickets.filter
+      ((ticket)=>ticket.segments.every
+        (segment=>segment.stops.length===(one&&1)
+                ||segment.stops.length===(two&&2)
+                ||segment.stops.length===(three&&3)
+                ||segment.stops.length===(zero&&0))))}
+    console.log(fiteredTickets);
   return fiteredTickets
 
-    // if(without){return null}
-    // if(one){return tickets.filter((ticket)=>ticket.segments.every(segment=>segment.stops.length===1))}
-    // if(withTwo){return tickets.filter((ticket)=>ticket.segments.forEach(segment=>segment.stops.length===2))}
-    // if(withThree){return tickets.filter((ticket)=>ticket.segments.forEach(segment=>segment.stops.length===3))}
+}
+const filterTab=(filteredTickets)=>{
+  switch (tab) {
+    case 'cheaper':
+      return filteredTickets.sort((a, b)=>a.price-b.price)
+    case 'fastest':
+      return filteredTickets.sort((a, b)=>((a.segments[0].duration+a.segments[1].duration)-(b.segments[0].duration+b.segments[1].duration)))
+    case 'optimal':
+    return filteredTickets.sort((a, b)=>(((a.segments[0].duration+a.segments[1].duration)<(b.segments[0].duration+b.segments[1].duration))-((b.segments[0].duration+b.segments[1].duration)<(a.segments[0].duration+a.segments[1].duration))||((a.price<b.price)-(b.price<a.price))))
+    default:
+      return filteredTickets
+
+  }
 
 }
 
 
     return <div>
     {load?<Spinner/>:
-      getfilteredItems(tickets).slice(0,10).map((ticket)=>
+      filterTab(getfilteredItems(tickets)).slice(0,10).map((ticket)=>
       <Ticket
       price={ticket.price}
       carrier={ticket.carrier}
@@ -58,8 +63,8 @@ const mapStateToProps=(state)=>{
         al:state.all,
         one:state.withOne,
         two:state.withTwo,
-        zero:state.without
-     
+        zero:state.without,
+        tab:state.filterTab
     }
   }
 export default connect(mapStateToProps, actions)(TicketList)

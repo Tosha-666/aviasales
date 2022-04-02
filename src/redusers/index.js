@@ -6,7 +6,7 @@ const initialState={
     withOne:false,
     withTwo:false,
     withThree:false,
-    filterTab:'fastest',
+    filterTab:'cheaper',
     error:false,
     errorIndicator:''
 }
