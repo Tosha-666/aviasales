@@ -1,6 +1,5 @@
 import React from "react";
 import "./Ticket.scss";
-import s7 from "../S7 Logo.png";
 import addMinutes from 'date-fns/addMinutes'
 
 
@@ -27,7 +26,7 @@ const timeCount=(date,duration)=>{
     <div className="ticket">
       <div className="header-box">
         <span className="price">{price} Р</span>
-        <img src={s7} alt="" />
+        <img src={`https://pics.avs.io/99/36/${carrier}.png`} alt={`${carrier} ticket`}  />
       </div>
       
         <table className="table-desk">

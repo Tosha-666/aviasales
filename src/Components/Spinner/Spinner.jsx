@@ -5,7 +5,10 @@ import './Spinner.scss'
 
 const Spinner =()=>{
     return(
-        <Spin size="large" className="spinner" />
+        <div className="spinner">
+            <Spin size="large"  />
+            </div>
+        
     )
 }
 

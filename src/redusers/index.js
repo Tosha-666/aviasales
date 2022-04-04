@@ -1,14 +1,15 @@
 const initialState={
     tickets:[],
     loading:true,
-    all:false,
-    without:false,
-    withOne:false,
-    withTwo:false,
-    withThree:false,
+    all:true,
+    without:true,
+    withOne:true,
+    withTwo:true,
+    withThree:true,
     filterTab:'cheaper',
     error:false,
-    errorIndicator:''
+    errorIndicator:'',
+    counter:5
 }
 
 const reduser = (state=initialState, action)=>{
@@ -19,7 +20,7 @@ const reduser = (state=initialState, action)=>{
             }
         case 'FETCH_TICKETS_SUCCESS':
             return{ 
-                ...state, tickets:action.payload,loading:false,error:false
+                ...state, tickets:action.payload,error:false
             }
         case 'FETCH_TICKETS_FAILURE':
             return{
@@ -72,7 +73,12 @@ const reduser = (state=initialState, action)=>{
         case 'LOADING':
             return{
                 ...state,
-                loading:true
+                loading:action.payload
+            }
+        case 'SHOW_MORE':
+            return{
+                ...state,
+                counter:state.counter+=5
             }
     }
 }

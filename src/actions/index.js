@@ -3,8 +3,8 @@ import API from '../api'
 // const apiService = new Aviasalesapi()
 
 const ticketsLoaded=()=>{
-    return dispatch =>{
-        dispatch(loading())
+     return dispatch =>{
+        dispatch(loading(true))
         // apiService.getResourse()
           API.get('search')
             .then (res=>{
@@ -17,13 +17,14 @@ const ticketsLoaded=()=>{
                         // console.log(res);
                         if (res.status===200){ 
                             if (res.data.stop===false){   
-                                // tickets.push(...res.data.tickets)
-                                dispatch(addTickets(res.data.tickets))
+                                tickets.push(...res.data.tickets)
+                                dispatch(addTickets(tickets))
                                 getTickets(searchId)
                             } if (res.data.stop===true) {
-                                // tickets.push(...res.data.tickets)
+                                tickets.push(...res.data.tickets)
                                 console.log(tickets);
-                                dispatch(addTickets(res.data.tickets))
+                                dispatch(loading(false))
+                                dispatch(addTickets(tickets))
                             }}
                         }
                     )
@@ -103,10 +104,17 @@ const changeFilterTab=(filter)=>{
     }
 }
 
-const loading=()=>{
+const loading=(load)=>{
     return{
-        type:'LOADING'
+        type:'LOADING',
+        payload:load
     }
 }
 
-export {ticketsLoaded,searchId,filterAll,filterWithout,filterWithOne,filterWithTwo,filterWithThree, changeFilterTab,loading,addFailure,addTickets}
+const showMore=()=>{
+    return{
+        type:'SHOW_MORE'
+    }
+}
+
+export {ticketsLoaded,searchId,filterAll,filterWithout,filterWithOne,filterWithTwo,filterWithThree, changeFilterTab,loading,addFailure,addTickets,showMore}

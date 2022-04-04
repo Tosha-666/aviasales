@@ -1,10 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from "react"
+import { connect } from "react-redux"
 import {Ticket} from '../Ticket'
 import {Spinner} from '../Spinner'
+import  "./TicketList.scss"
 import * as actions from '../../actions'
 
-const TicketList=({tickets, al, zero, one, two, three,load,tab})=>{
+const TicketList=({tickets, al, zero, one, two, three,load,tab,count,showMore})=>{
 const getfilteredItems=(tickets)=>{
   const fiteredTickets=[]
 
@@ -29,30 +30,36 @@ const filterTab=(filteredTickets)=>{
     return filteredTickets.sort((a, b)=>(((a.segments[0].duration+a.segments[1].duration)<(b.segments[0].duration+b.segments[1].duration))-((b.segments[0].duration+b.segments[1].duration)<(a.segments[0].duration+a.segments[1].duration))||((a.price<b.price)-(b.price<a.price))))
     default:
       return filteredTickets
-
   }
-
 }
 
 
+
     return <div>
-    {load?<Spinner/>:
-      filterTab(getfilteredItems(tickets)).slice(0,10).map((ticket)=>
-      <Ticket
-      price={ticket.price}
-      carrier={ticket.carrier}
-      toOrigin={ticket.segments[0].origin}
-      toDestination={ticket.segments[0].destination}
-      toDate={ticket.segments[0].date}
-      toDuration={ticket.segments[0].duration}
-      toStops={ticket.segments[0].stops}
-      backOrigin={ticket.segments[1].origin}
-      backDestination={ticket.segments[1].destination}
-      backDate={ticket.segments[1].date}
-      backDuration={ticket.segments[1].duration}
-      backStops={ticket.segments[1].stops}
-      />)
-    }</div>
+      <React.Fragment>
+        {load&&<Spinner/>}
+        {filterTab(getfilteredItems(tickets)).slice(0,count).map((ticket)=>
+          <Ticket
+          price={ticket.price}
+          carrier={ticket.carrier}
+          toOrigin={ticket.segments[0].origin}
+          toDestination={ticket.segments[0].destination}
+          toDate={ticket.segments[0].date}
+          toDuration={ticket.segments[0].duration}
+          toStops={ticket.segments[0].stops}
+          backOrigin={ticket.segments[1].origin}
+          backDestination={ticket.segments[1].destination}
+          backDate={ticket.segments[1].date}
+          backDuration={ticket.segments[1].duration}
+          backStops={ticket.segments[1].stops}
+          />)        
+    }
+        {tickets.length>5&&<button 
+        className="more"
+        onClick={showMore}>ПОКАЗАТЬ ЕЩЁ 5 БИЛЕТОВ</button>}
+      </React.Fragment>
+    
+      </div>
     
 }
 const mapStateToProps=(state)=>{
@@ -64,7 +71,8 @@ const mapStateToProps=(state)=>{
         one:state.withOne,
         two:state.withTwo,
         zero:state.without,
-        tab:state.filterTab
+        tab:state.filterTab,
+        count:state.counter
     }
   }
 export default connect(mapStateToProps, actions)(TicketList)
