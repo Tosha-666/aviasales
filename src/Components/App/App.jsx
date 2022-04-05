@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Tabs } from "../Tabs";
 import { FilterBar } from "../FiltersBar";
 import { TicketList } from "../TicketList";
-// import Aviasalesapi from '../../api'
 import { connect } from "react-redux";
 import * as actions from "../../actions";
 

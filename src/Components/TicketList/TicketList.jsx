@@ -111,7 +111,7 @@ const TicketList = ({
               backStops={ticket.segments[1].stops}
             />
           ))}
-        {tickets.length > 5 && (
+        {filterTab(getfilteredItems(tickets)).length > 5 && (
           <button className="more" onClick={showMore}>
             ПОКАЗАТЬ ЕЩЁ 5 БИЛЕТОВ
           </button>

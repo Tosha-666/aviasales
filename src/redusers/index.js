@@ -39,6 +39,7 @@ const reduser = (state = initialState, action) => {
             withOne: false,
             withTwo: false,
             withThree: false,
+            counter:5,
           }
         : {
             ...state,
@@ -47,39 +48,40 @@ const reduser = (state = initialState, action) => {
             withOne: true,
             withTwo: true,
             withThree: true,
+            counter:5,
           };
     case "without":
       if (state.without) {
-        return { ...state, all: false, without: false };
+        return { ...state, all: false, without: false, counter:5 };
       } else {
         if (state.withOne && state.withTwo && state.withThree)
-          return { ...state, without: true, all: true };
-        else return { ...state, without: true };
+          return { ...state, without: true, all: true, counter:5 };
+        else return { ...state, without: true, counter:5 };
       }
 
     case "withOne":
       if (state.withOne) {
-        return { ...state, all: false, withOne: false };
+        return { ...state, all: false, withOne: false, counter:5 };
       } else {
         if (state.without && state.withTwo && state.withThree)
-          return { ...state, withOne: true, all: true };
-        else return { ...state, withOne: true };
+          return { ...state, withOne: true, all: true, counter:5 };
+        else return { ...state, withOne: true, counter:5 };
       }
     case "withTwo":
       if (state.withTwo) {
-        return { ...state, all: false, withTwo: false };
+        return { ...state, all: false, withTwo: false, counter:5 };
       } else {
         if (state.without && state.withOne && state.withThree)
-          return { ...state, withTwo: true, all: true };
-        else return { ...state, withTwo: true };
+          return { ...state, withTwo: true, all: true, counter:5 };
+        else return { ...state, withTwo: true, counter:5 };
       }
     case "withThree":
       if (state.withThree) {
-        return { ...state, all: false, withThree: false };
+        return { ...state, all: false, withThree: false, counter:5 };
       } else {
         if (state.without && state.withOne && state.withTwo)
-          return { ...state, withThree: true, all: true };
-        else return { ...state, withThree: true };
+          return { ...state, withThree: true, all: true, counter:5 };
+        else return { ...state, withThree: true, counter:5 };
       }
     case "changeFilter":
       return {
