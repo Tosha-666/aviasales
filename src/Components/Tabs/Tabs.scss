@@ -18,7 +18,7 @@
     border: 1px solid #dfe5ec;
     box-sizing: border-box;
     color: #4a4a4a;
-    cursor:pointer;
+    cursor: pointer;
     &:after {
       content: "";
       height: 100%;
@@ -36,6 +36,6 @@
   .active {
     background-color: #2196f3;
     border: 1px solid #2196f3;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
