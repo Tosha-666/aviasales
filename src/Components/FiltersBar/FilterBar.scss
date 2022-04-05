@@ -7,7 +7,7 @@
   margin-top: 5px;
   .filter-title {
     display: inline-block;
-    font-family: "Open Sans";
+    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
@@ -46,7 +46,7 @@
           user-select: none;
         }
         & + .checkbox-label::before {
-          content: "";
+          content: '';
           display: inline-block;
           width: 1em;
           height: 1em;
@@ -61,7 +61,7 @@
         }
         &:checked + .checkbox-label::before {
           border-color: #2196f3;
-          background-image: url("../images/Shape.png");
+          background-image: url('../images/Shape.png');
         }
 
         &:not(:disabled):not(:checked) + label:hover::before {

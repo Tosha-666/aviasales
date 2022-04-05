@@ -1,8 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./FilterBar.scss";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
+import React from 'react'
+import PropTypes from 'prop-types'
+import './FilterBar.scss'
+import { connect } from 'react-redux'
+
+import * as actions from '../../actions'
 
 const FilterBar = ({
   all,
@@ -27,7 +28,7 @@ const FilterBar = ({
     filterWithOne: () => {},
     filterWithTwo: () => {},
     filterWithThree: () => {},
-  };
+  }
 
   FilterBar.propTypes = {
     all: PropTypes.bool,
@@ -40,7 +41,7 @@ const FilterBar = ({
     filterWithOne: PropTypes.func,
     filterWithTwo: PropTypes.func,
     filterWithThree: PropTypes.func,
-  };
+  }
   return (
     <div className="filter-bar">
       <span className="filter-title">КОЛИЧЕСТВО ПЕРЕСАДОК</span>
@@ -107,22 +108,20 @@ const FilterBar = ({
         </li>
       </ul>
     </div>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => {
-  return {
-    all: state.all,
-    without: state.without,
-    withOne: state.withOne,
-    withTwo: state.withTwo,
-    withThree: state.withThree,
-  };
-};
+const mapStateToProps = (state) => ({
+  all: state.all,
+  without: state.without,
+  withOne: state.withOne,
+  withTwo: state.withTwo,
+  withThree: state.withThree,
+})
 
 // const mapDispatchToProps=(dispatch)=>{
 //   return bindActionCreators(actions,dispatch)
 
 // }
 
-export default connect(mapStateToProps, actions)(FilterBar);
+export default connect(mapStateToProps, actions)(FilterBar)

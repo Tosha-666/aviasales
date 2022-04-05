@@ -1,7 +1,7 @@
-import React from "react";
-import "./Ticket.scss";
-import PropTypes from "prop-types";
-import addMinutes from "date-fns/addMinutes";
+import React from 'react'
+import './Ticket.scss'
+import PropTypes from 'prop-types'
+import addMinutes from 'date-fns/addMinutes'
 
 const Ticket = ({
   price,
@@ -19,18 +19,18 @@ const Ticket = ({
 }) => {
   Ticket.defaultProps = {
     price: 0,
-    carrier: "unknown",
-    toOrigin: "unknown",
-    toDestination: "unknown",
-    toDate: "unknown",
+    carrier: 'unknown',
+    toOrigin: 'unknown',
+    toDestination: 'unknown',
+    toDate: 'unknown',
     toDuration: 0,
     toStops: [],
-    backOrigin: "unknown",
-    backDestination: "unknown",
-    backDate: "unknown",
+    backOrigin: 'unknown',
+    backDestination: 'unknown',
+    backDate: 'unknown',
     backDuration: 0,
     backStops: [],
-  };
+  }
 
   Ticket.propTypes = {
     price: PropTypes.number,
@@ -45,27 +45,25 @@ const Ticket = ({
     backDate: PropTypes.string,
     backDuration: PropTypes.number,
     backStops: PropTypes.arrayOf(PropTypes.string),
-  };
+  }
 
   const getTimeFromMins = (mins) => {
-    let hours = Math.trunc(mins / 60);
-    let minutes = mins % 60;
-    return hours + ":" + minutes;
-  };
+    let hours = Math.trunc(mins / 60)
+    let minutes = mins % 60
+    return hours + ':' + minutes
+  }
 
   const time = (time) =>
-    time
-      .substring(time.indexOf("T") + 1, time.lastIndexOf(".000Z"))
-      .slice(0, 5);
+    time.substring(time.indexOf('T') + 1, time.lastIndexOf('.000Z')).slice(0, 5)
 
   const timeCount = (date, duration) => {
-    const [year, month, day, hour, minutes] = date.match(/[0-9]{2,4}/g);
+    const [year, month, day, hour, minutes] = date.match(/[0-9]{2,4}/g)
     const arrivalTime = addMinutes(
       new Date(year, month, day, hour, minutes),
       duration
-    );
-    return arrivalTime.toString().match(/\d{2}:\d{2}/);
-  };
+    )
+    return arrivalTime.toString().match(/\d{2}:\d{2}/)
+  }
 
   return (
     <div className="ticket">
@@ -91,7 +89,7 @@ const Ticket = ({
               {time(toDate)} - {timeCount(toDate, toDuration)}
             </td>
             <td className="table-data">{getTimeFromMins(toDuration)}</td>
-            <td className="table-data">{toStops.join(", ")}</td>
+            <td className="table-data">{toStops.join(', ')}</td>
           </tr>
           <tr>
             <th className="table-header">
@@ -105,11 +103,11 @@ const Ticket = ({
               {time(backDate)} - {timeCount(backDate, backDuration)}
             </td>
             <td className="table-data">{getTimeFromMins(backDuration)}</td>
-            <td className="table-data">{backStops.join(", ")}</td>
+            <td className="table-data">{backStops.join(', ')}</td>
           </tr>
         </tbody>
       </table>
     </div>
-  );
-};
-export default Ticket;
+  )
+}
+export default Ticket

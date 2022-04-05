@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Ticket } from "../Ticket";
-import { Spinner } from "../Spinner";
-import "./TicketList.scss";
-import * as actions from "../../actions";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Ticket } from '../Ticket'
+import { Spinner } from '../Spinner'
+import './TicketList.scss'
+import * as actions from '../../actions'
 
 const TicketList = ({
   tickets,
@@ -26,10 +26,10 @@ const TicketList = ({
     two: false,
     three: false,
     load: false,
-    tab: "cheaper",
+    tab: 'cheaper',
     count: 5,
     showMore: () => {},
-  };
+  }
 
   TicketList.propTypes = {
     tickets: PropTypes.arrayOf(PropTypes.object),
@@ -42,12 +42,12 @@ const TicketList = ({
     tab: PropTypes.string,
     count: PropTypes.number,
     showMore: PropTypes.func,
-  };
+  }
   const getfilteredItems = (tickets) => {
-    const fiteredTickets = [];
+    const fiteredTickets = []
 
     if (al) {
-      fiteredTickets.push(...tickets);
+      fiteredTickets.push(...tickets)
     } else {
       fiteredTickets.push(
         ...tickets.filter((ticket) =>
@@ -59,23 +59,23 @@ const TicketList = ({
               segment.stops.length === (zero && 0)
           )
         )
-      );
+      )
     }
-    console.log(fiteredTickets);
-    return fiteredTickets;
-  };
+    console.log(fiteredTickets)
+    return fiteredTickets
+  }
   const filterTab = (filteredTickets) => {
     switch (tab) {
-      case "cheaper":
-        return filteredTickets.sort((a, b) => a.price - b.price);
-      case "fastest":
+      case 'cheaper':
+        return filteredTickets.sort((a, b) => a.price - b.price)
+      case 'fastest':
         return filteredTickets.sort(
           (a, b) =>
             a.segments[0].duration +
             a.segments[1].duration -
             (b.segments[0].duration + b.segments[1].duration)
-        );
-      case "optimal":
+        )
+      case 'optimal':
         return filteredTickets.sort(
           (a, b) =>
             (a.segments[0].duration + a.segments[1].duration <
@@ -83,11 +83,11 @@ const TicketList = ({
               (b.segments[0].duration + b.segments[1].duration <
                 a.segments[0].duration + a.segments[1].duration) ||
             (a.price < b.price) - (b.price < a.price)
-        );
+        )
       default:
-        return filteredTickets;
+        return filteredTickets
     }
-  };
+  }
 
   return (
     <div>
@@ -118,10 +118,10 @@ const TicketList = ({
         )}
       </React.Fragment>
     </div>
-  );
-};
+  )
+}
 const mapStateToProps = (state) => {
-  console.log(state);
+  console.log(state)
   return {
     tickets: state.tickets,
     load: state.loading,
@@ -131,6 +131,6 @@ const mapStateToProps = (state) => {
     zero: state.without,
     tab: state.filterTab,
     count: state.counter,
-  };
-};
-export default connect(mapStateToProps, actions)(TicketList);
+  }
+}
+export default connect(mapStateToProps, actions)(TicketList)

@@ -1,17 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import { App } from "./Components/App";
-import { ErrorBoundry } from "./Components/ErrorBoundry";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import store from "./store";
+import { App } from './Components/App'
+import { ErrorBoundry } from './Components/ErrorBoundry'
+import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundry>
-        <App />
+      <App />
     </ErrorBoundry>
   </Provider>,
 
-  document.getElementById("root")
-);
+  document.getElementById('root')
+)

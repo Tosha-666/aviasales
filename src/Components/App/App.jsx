@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
-import "./App.scss";
-import PropTypes from "prop-types";
-import { Tabs } from "../Tabs";
-import { FilterBar } from "../FiltersBar";
-import { TicketList } from "../TicketList";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
+import React, { useEffect } from 'react'
+import './App.scss'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+
+import { Tabs } from '../Tabs'
+import { FilterBar } from '../FiltersBar'
+import { TicketList } from '../TicketList'
+import * as actions from '../../actions'
 
 function App({ ticketsLoaded }) {
   App.defaultProps = {
     ticketsLoaded: () => {},
-  };
+  }
   App.propTypes = {
     ticketsLoaded: PropTypes.func,
-  };
+  }
 
   useEffect(() => {
-    ticketsLoaded();
-  }, [ticketsLoaded]);
+    ticketsLoaded()
+  }, [ticketsLoaded])
 
   return (
     <main className="container">
@@ -30,7 +31,7 @@ function App({ ticketsLoaded }) {
         </div>
       </div>
     </main>
-  );
+  )
 }
 
-export default connect(null, actions)(App);
+export default connect(null, actions)(App)

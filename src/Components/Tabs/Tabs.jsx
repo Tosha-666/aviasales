@@ -1,46 +1,54 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./Tabs.scss";
-import { connect } from "react-redux";
-import * as actions from "../../actions";
+import React from 'react'
+import PropTypes from 'prop-types'
+import './Tabs.scss'
+import { connect } from 'react-redux'
 
-const Tabs = ({ filterTab, changeFilterTab }) => {
+import * as actions from '../../actions'
+
+function Tabs({ filterTab, changeFilterTab }) {
   Tabs.defaultProps = {
-    filterTab: "cheaper",
+    filterTab: 'cheaper',
     changeFilterTab: () => {},
-  };
+  }
   Tabs.propTypes = {
     filterTab: PropTypes.string,
     changeFilterTab: PropTypes.func,
-  };
+  }
   return (
     <div className="tab-container">
       <span
-        className={`tab ${filterTab === "cheaper" && "active"}`}
-        onClick={() => changeFilterTab("cheaper")}
+        className={`tab ${filterTab === 'cheaper' && 'active'}`}
+        onClick={() => changeFilterTab('cheaper')}
+        onKeyDown={() => changeFilterTab('cheaper')}
+        role="button"
+        tabIndex={0}
       >
         САМЫЙ ДЕШЕВЫЙ
       </span>
       <span
-        className={`tab ${filterTab === "fastest" && "active"}`}
-        onClick={() => changeFilterTab("fastest")}
+        className={`tab ${filterTab === 'fastest' && 'active'}`}
+        onClick={() => changeFilterTab('fastest')}
+        onKeyDown={() => changeFilterTab('fastest')}
+        role="button"
+        tabIndex={0}
       >
         САМЫЙ БЫСТРЫЙ
       </span>
       <span
-        className={`tab ${filterTab === "optimal" && "active"}`}
-        onClick={() => changeFilterTab("optimal")}
+        className={`tab ${filterTab === 'optimal' && 'active'}`}
+        onClick={() => changeFilterTab('optimal')}
+        onKeyDown={() => changeFilterTab('optimal')}
+        role="button"
+        tabIndex={0}
       >
         ОПТИМАЛЬНЫЙ
       </span>
     </div>
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => {
-  return {
-    filterTab: state.filterTab,
-  };
-};
+const mapStateToProps = (state) => ({
+  filterTab: state.filterTab,
+})
 
-export default connect(mapStateToProps, actions)(Tabs);
+export default connect(mapStateToProps, actions)(Tabs)
