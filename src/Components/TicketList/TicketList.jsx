@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+
 import { Ticket } from '../Ticket'
 import { Spinner } from '../Spinner'
 import './TicketList.scss'
@@ -97,6 +98,7 @@ const TicketList = ({
           .slice(0, count)
           .map((ticket) => (
             <Ticket
+              key={`${ticket.price}${ticket.carrier}${ticket.segments[0].date}${ticket.segments[1].date}`}
               price={ticket.price}
               carrier={ticket.carrier}
               toOrigin={ticket.segments[0].origin}
