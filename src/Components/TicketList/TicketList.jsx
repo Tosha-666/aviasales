@@ -62,7 +62,6 @@ const TicketList = ({
         )
       )
     }
-    console.log(fiteredTickets)
     return fiteredTickets
   }
   const filterTab = (filteredTickets) => {
@@ -123,7 +122,6 @@ const TicketList = ({
   )
 }
 const mapStateToProps = (state) => {
-  console.log(state)
   return {
     tickets: state.tickets,
     load: state.loading,

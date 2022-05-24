@@ -8,7 +8,7 @@ import { FilterBar } from '../FiltersBar'
 import { TicketList } from '../TicketList'
 import * as actions from '../../actions'
 
-function App({ ticketsLoaded }) {
+const App = ({ ticketsLoaded }) => {
   App.defaultProps = {
     ticketsLoaded: () => {},
   }

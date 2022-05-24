@@ -1,9 +1,12 @@
 import axios from 'axios'
 
 export default axios.create({
-  baseURL: 'https://front-test.beta.aviasales.ru/',
+  baseURL: 'https://aviasales-test-api.kata.academy/',
 })
-
+//++++++++++++++++++++++++++++++++++++++++++++++++
+// 'https://front-test.beta.aviasales.ru/'
+// 'https://aviasales-test-api.kata.academy/'
+//++++++++++++++++++++++++++++++++++++++++++++++++
 // export default class Aviasalesapi {
 //     baseURL ='https://front-test.beta.aviasales.ru/'
 
