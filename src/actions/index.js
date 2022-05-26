@@ -25,7 +25,9 @@ const ticketsLoaded = () => {
             }
           })
           .catch((err) => {
-            if (err.response.status === 500) {
+            if (err.message === 'Network Error') {
+              dispatch(addFailure(err.message))
+            } else if (err.response.status === 500) {
               if (iterrateNumber > 0) {
                 iterrateNumber -= 1
                 getTickets(searchId)
@@ -37,6 +39,7 @@ const ticketsLoaded = () => {
                 dispatch(addFailure(err.message))
               }
             }
+            dispatch(addFailure('Failed to load tickets'))
           })
       }
       getTickets(searchId)

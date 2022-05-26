@@ -79,7 +79,7 @@ const FilterBar = ({
             onChange={filterWithOne}
           />
           <label htmlFor="with-1-transplant" className="checkbox-label">
-            С 1 пересадкой
+            1 пересадка
           </label>
         </li>
         <li className="filter-check">
@@ -91,7 +91,7 @@ const FilterBar = ({
             onChange={filterWithTwo}
           />
           <label htmlFor="with-2-transplant" className="checkbox-label">
-            С 2 пересадками
+            2 пересадки
           </label>
         </li>
         <li className="filter-check">
@@ -103,7 +103,7 @@ const FilterBar = ({
             onChange={filterWithThree}
           />
           <label htmlFor="with-3-transplant" className="checkbox-label">
-            С 3 пересадками
+            3 пересадки
           </label>
         </li>
       </ul>

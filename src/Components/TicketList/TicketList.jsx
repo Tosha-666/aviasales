@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Alert } from 'antd'
 import { connect } from 'react-redux'
 
 import { Ticket } from '../Ticket'
@@ -18,6 +19,8 @@ const TicketList = ({
   tab,
   count,
   showMore,
+  err,
+  errorIndicator,
 }) => {
   TicketList.defaultProps = {
     tickets: [],
@@ -44,6 +47,7 @@ const TicketList = ({
     count: PropTypes.number,
     showMore: PropTypes.func,
   }
+
   const getfilteredItems = (tickets) => {
     const fiteredTickets = []
 
@@ -93,6 +97,9 @@ const TicketList = ({
     <div>
       <React.Fragment>
         {load && <Spinner />}
+        {/* {err && (
+          <Alert message={errorIndicator} type="error" closable showIcon />
+        )} */}
         {filterTab(getfilteredItems(tickets))
           .slice(0, count)
           .map((ticket) => (
@@ -123,7 +130,7 @@ const TicketList = ({
 }
 const mapStateToProps = (state) => {
   return {
-    tickets: state.tickets,
+    tickets: Object.assign([], state.tickets),
     load: state.loading,
     al: state.all,
     one: state.withOne,
@@ -131,6 +138,8 @@ const mapStateToProps = (state) => {
     zero: state.without,
     tab: state.filterTab,
     count: state.counter,
+    err: state.error,
+    errorIndicator: state.errorIndicator,
   }
 }
 export default connect(mapStateToProps, actions)(TicketList)

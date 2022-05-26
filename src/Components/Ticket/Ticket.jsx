@@ -50,11 +50,15 @@ const Ticket = ({
   const getTimeFromMins = (mins) => {
     let hours = Math.trunc(mins / 60)
     let minutes = mins % 60
-    return hours + ':' + minutes
+    return (
+      `0${hours.toString()}`.slice(-2) +
+      ':' +
+      `0${minutes.toString()}`.slice(-2)
+    )
   }
 
   const time = (time) =>
-    time.substring(time.indexOf('T') + 1, time.lastIndexOf('.000Z')).slice(0, 5)
+    time.substring(time.indexOf('T') + 1, time.lastIndexOf('.000Z')).slice(0, 4)
 
   const timeCount = (date, duration) => {
     const [year, month, day, hour, minutes] = date.match(/[0-9]{2,4}/g)
