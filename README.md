@@ -1,1 +1,1 @@
-https://aviasales-hbvm6i65e-tosha-666.vercel.app/
+https://aviasales-it9v60mvy-tosha-666.vercel.app/
