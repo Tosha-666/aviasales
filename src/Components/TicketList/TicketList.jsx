@@ -92,14 +92,23 @@ const TicketList = ({
         return filteredTickets
     }
   }
-
+  console.log(errorIndicator.err)
   return (
     <div>
       <React.Fragment>
         {load && <Spinner />}
-        {/* {err && (
-          <Alert message={errorIndicator} type="error" closable showIcon />
-        )} */}
+
+        {err && (
+          <Alert message={errorIndicator.err} type="error" closable showIcon />
+        )}
+        {getfilteredItems(tickets).length === 0 && tickets.length > 0 ? (
+          <Alert
+            message={'There are no tickets for the selected filter'}
+            type="warning"
+            closable
+            showIcon
+          />
+        ) : null}
         {filterTab(getfilteredItems(tickets))
           .slice(0, count)
           .map((ticket) => (
@@ -135,6 +144,7 @@ const mapStateToProps = (state) => {
     al: state.all,
     one: state.withOne,
     two: state.withTwo,
+    three: state.withThree,
     zero: state.without,
     tab: state.filterTab,
     count: state.counter,

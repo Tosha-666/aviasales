@@ -29,6 +29,7 @@ const reduser = (state = initialState, action) => {
         ...state,
         error: true,
         errorIndicator: action.payload,
+        loading: false,
       }
     case 'all':
       return state.all

@@ -32,14 +32,13 @@ const ticketsLoaded = () => {
                 iterrateNumber -= 1
                 getTickets(searchId)
               } else {
-                dispatch(addFailure(err.message))
+                dispatch(addFailure('Failed to load tickets'))
                 console.log(err.response.status)
               }
-              if (err.response.status === 404) {
-                dispatch(addFailure(err.message))
-              }
+            } else if (err.response.status === 404) {
+              dispatch(addFailure(err.message))
             }
-            dispatch(addFailure('Failed to load tickets'))
+            // dispatch(addFailure('Failed to load tickets'))
           })
       }
       getTickets(searchId)
