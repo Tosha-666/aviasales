@@ -1,37 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Alert } from 'antd'
-import { connect } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 
 import { Ticket } from '../Ticket'
 import { Spinner } from '../Spinner'
 import './TicketList.scss'
 import * as actions from '../../actions'
 
-const TicketList = ({
-  tickets,
-  al,
-  zero,
-  one,
-  two,
-  three,
-  load,
-  tab,
-  count,
-  showMore,
-  err,
-  errorIndicator,
-}) => {
+const TicketList = (
+  {
+    // tickets,
+    // al,
+    // zero,
+    // one,
+    // two,
+    // three,
+    // load,
+    // tab,
+    // count,
+    // showMore,
+    // err,
+    // errorIndicator,
+  }
+) => {
   TicketList.defaultProps = {
     tickets: [],
-    al: false,
-    zero: false,
-    one: false,
-    two: false,
-    three: false,
-    load: false,
-    tab: 'cheaper',
-    count: 5,
+
     showMore: () => {},
   }
 
@@ -42,11 +37,25 @@ const TicketList = ({
     one: PropTypes.bool,
     two: PropTypes.bool,
     three: PropTypes.bool,
-    load: PropTypes.bool,
+    load: PropTypes.string,
     tab: PropTypes.string,
     count: PropTypes.number,
     showMore: PropTypes.func,
   }
+
+  const dispatch = useDispatch()
+
+  const tickets = useSelector((state) => state.tickets)
+  const al = useSelector((state) => state.all)
+  const zero = useSelector((state) => state.without)
+  const one = useSelector((state) => state.withOne)
+  const two = useSelector((state) => state.withTwo)
+  const three = useSelector((state) => state.withThree)
+  const load = useSelector((state) => state.loadingStatus)
+  const tab = useSelector((state) => state.filterTab)
+  const count = useSelector((state) => state.counter)
+  const err = useSelector((state) => state.error)
+  const errorIndicator = useSelector((state) => state.tickets)
 
   const getfilteredItems = (tickets) => {
     const fiteredTickets = []
@@ -92,11 +101,10 @@ const TicketList = ({
         return filteredTickets
     }
   }
-  console.log(errorIndicator.err)
   return (
     <div>
       <React.Fragment>
-        {load && <Spinner />}
+        {load === 'loading' && <Spinner />}
 
         {err && (
           <Alert message={errorIndicator.err} type="error" closable showIcon />
@@ -129,7 +137,10 @@ const TicketList = ({
             />
           ))}
         {filterTab(getfilteredItems(tickets)).length > 5 && (
-          <button className="more" onClick={showMore}>
+          <button
+            className="more"
+            onClick={() => dispatch({ type: 'SHOW_MORE' })}
+          >
             ПОКАЗАТЬ ЕЩЁ 5 БИЛЕТОВ
           </button>
         )}
@@ -137,19 +148,21 @@ const TicketList = ({
     </div>
   )
 }
-const mapStateToProps = (state) => {
-  return {
-    tickets: Object.assign([], state.tickets),
-    load: state.loading,
-    al: state.all,
-    one: state.withOne,
-    two: state.withTwo,
-    three: state.withThree,
-    zero: state.without,
-    tab: state.filterTab,
-    count: state.counter,
-    err: state.error,
-    errorIndicator: state.errorIndicator,
-  }
-}
-export default connect(mapStateToProps, actions)(TicketList)
+// const mapStateToProps = (state) => {
+//   return {
+//     tickets: Object.assign([], state.tickets),
+//     load: state.loadingStatus,
+//     // load: state.loading,
+//     al: state.all,
+//     one: state.withOne,
+//     two: state.withTwo,
+//     three: state.withThree,
+//     zero: state.without,
+//     tab: state.filterTab,
+//     count: state.counter,
+//     err: state.error,
+//     errorIndicator: state.errorIndicator,
+//   }
+// }
+export default TicketList
+// connect(mapStateToProps, actions)(TicketList)

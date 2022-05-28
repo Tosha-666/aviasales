@@ -16,7 +16,6 @@ export default class ErrorBoundry extends Component {
   }
 
   render() {
-    console.log(this.state.message)
     if (this.state.hasError) {
       return <ErrorIndicator />
     }

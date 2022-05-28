@@ -2,7 +2,8 @@ import API from '../api'
 
 const ticketsLoaded = () => {
   return (dispatch) => {
-    dispatch(loading(true))
+    // dispatch(loading(true))
+    dispatch(loading('loading'))
     API.get('search').then((res) => {
       const searchId = res.data.searchId
       let iterrateNumber = 10
@@ -18,8 +19,8 @@ const ticketsLoaded = () => {
               }
               if (res.data.stop === true) {
                 tickets.push(...res.data.tickets)
-                console.log(tickets)
-                dispatch(loading(false))
+                // dispatch(loading(false))
+                dispatch(loading('succeed'))
                 dispatch(addTickets(tickets))
               }
             }
@@ -27,18 +28,19 @@ const ticketsLoaded = () => {
           .catch((err) => {
             if (err.message === 'Network Error') {
               dispatch(addFailure(err.message))
+              dispatch(loading('failed')) //
             } else if (err.response.status === 500) {
               if (iterrateNumber > 0) {
                 iterrateNumber -= 1
                 getTickets(searchId)
               } else {
                 dispatch(addFailure('Failed to load tickets'))
-                console.log(err.response.status)
+                dispatch(loading('failed')) //
               }
             } else if (err.response.status === 404) {
               dispatch(addFailure(err.message))
+              dispatch(loading('failed')) //
             }
-            // dispatch(addFailure('Failed to load tickets'))
           })
       }
       getTickets(searchId)

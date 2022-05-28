@@ -1,5 +1,6 @@
 const initialState = {
   tickets: [],
+  loadingStatus: 'idle', //loading,succeed,failed
   loading: true,
   all: true,
   without: true,
@@ -96,7 +97,8 @@ const reduser = (state = initialState, action) => {
     case 'LOADING':
       return {
         ...state,
-        loading: action.payload,
+        loadingStatus: action.payload,
+        // loading: action.payload,
       }
     case 'SHOW_MORE':
       return {

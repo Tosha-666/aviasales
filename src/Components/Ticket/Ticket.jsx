@@ -86,7 +86,12 @@ const Ticket = ({
               {toOrigin}-{toDestination}
             </th>
             <th className="table-header">В ПУТИ</th>
-            <th className="table-header">{toStops.length} ПЕРЕСАДКИ</th>
+            <th className="table-header">
+              {toStops.length} {toStops.length === 1 && 'ПЕРЕСАДКА'}
+              {toStops.length === 2 && 'ПЕРЕСАДКИ'}
+              {toStops.length === 3 && 'ПЕРЕСАДКИ'}
+              {toStops.length === 0 && 'ПЕРЕСАДОК'}
+            </th>
           </tr>
           <tr>
             <td className="table-data">
@@ -100,7 +105,12 @@ const Ticket = ({
               {backOrigin}-{backDestination}
             </th>
             <th className="table-header">В ПУТИ</th>
-            <th className="table-header">{backStops.length} ПЕРЕСАДКИ</th>
+            <th className="table-header">
+              {backStops.length} {backStops.length === 1 && 'ПЕРЕСАДКА'}
+              {backStops.length === 2 && 'ПЕРЕСАДКИ'}
+              {backStops.length === 3 && 'ПЕРЕСАДКИ'}
+              {backStops.length === 0 && 'ПЕРЕСАДОК'}
+            </th>
           </tr>
           <tr>
             <td className="table-data">
