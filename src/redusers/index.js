@@ -98,7 +98,6 @@ const reduser = (state = initialState, action) => {
       return {
         ...state,
         loadingStatus: action.payload,
-        // loading: action.payload,
       }
     case 'SHOW_MORE':
       return {

@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './Tabs.scss'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import * as actions from '../../actions'
-
-function Tabs({ filterTab, changeFilterTab }) {
+function Tabs() {
   Tabs.defaultProps = {
     filterTab: 'cheaper',
     changeFilterTab: () => {},
@@ -14,12 +12,17 @@ function Tabs({ filterTab, changeFilterTab }) {
     filterTab: PropTypes.string,
     changeFilterTab: PropTypes.func,
   }
+
+  const dispatch = useDispatch()
+
+  const filterTab = useSelector((state) => state.filterTab)
+
   return (
     <div className="tab-container">
       <span
         className={`tab ${filterTab === 'cheaper' && 'active'}`}
-        onClick={() => changeFilterTab('cheaper')}
-        onKeyDown={() => changeFilterTab('cheaper')}
+        onClick={() => dispatch({ type: 'changeFilter', payload: 'cheaper' })}
+        onKeyDown={() => dispatch({ type: 'changeFilter', payload: 'cheaper' })}
         role="button"
         tabIndex={0}
       >
@@ -27,8 +30,8 @@ function Tabs({ filterTab, changeFilterTab }) {
       </span>
       <span
         className={`tab ${filterTab === 'fastest' && 'active'}`}
-        onClick={() => changeFilterTab('fastest')}
-        onKeyDown={() => changeFilterTab('fastest')}
+        onClick={() => dispatch({ type: 'changeFilter', payload: 'fastest' })}
+        onKeyDown={() => dispatch({ type: 'changeFilter', payload: 'fastest' })}
         role="button"
         tabIndex={0}
       >
@@ -36,8 +39,8 @@ function Tabs({ filterTab, changeFilterTab }) {
       </span>
       <span
         className={`tab ${filterTab === 'optimal' && 'active'}`}
-        onClick={() => changeFilterTab('optimal')}
-        onKeyDown={() => changeFilterTab('optimal')}
+        onClick={() => dispatch({ type: 'changeFilter', payload: 'optimal' })}
+        onKeyDown={() => dispatch({ type: 'changeFilter', payload: 'optimal' })}
         role="button"
         tabIndex={0}
       >
@@ -47,8 +50,4 @@ function Tabs({ filterTab, changeFilterTab }) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  filterTab: state.filterTab,
-})
-
-export default connect(mapStateToProps, actions)(Tabs)
+export default Tabs

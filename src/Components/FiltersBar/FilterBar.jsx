@@ -1,22 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import './FilterBar.scss'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import * as actions from '../../actions'
-
-const FilterBar = ({
-  all,
-  without,
-  withOne,
-  withTwo,
-  withThree,
-  filterAll,
-  filterWithout,
-  filterWithOne,
-  filterWithTwo,
-  filterWithThree,
-}) => {
+const FilterBar = () => {
   FilterBar.defaultProps = {
     all: true,
     without: true,
@@ -42,6 +29,15 @@ const FilterBar = ({
     filterWithTwo: PropTypes.func,
     filterWithThree: PropTypes.func,
   }
+
+  const dispatch = useDispatch()
+
+  const all = useSelector((state) => state.all)
+  const without = useSelector((state) => state.without)
+  const withOne = useSelector((state) => state.withOne)
+  const withTwo = useSelector((state) => state.withTwo)
+  const withThree = useSelector((state) => state.withThree)
+
   return (
     <div className="filter-bar">
       <span className="filter-title">КОЛИЧЕСТВО ПЕРЕСАДОК</span>
@@ -52,7 +48,7 @@ const FilterBar = ({
             type="checkbox"
             id="all"
             checked={all}
-            onChange={filterAll}
+            onChange={() => dispatch({ type: 'all' })}
           />
           <label htmlFor="all" className="checkbox-label">
             Все
@@ -64,7 +60,7 @@ const FilterBar = ({
             type="checkbox"
             id="without-transplants"
             checked={without}
-            onChange={filterWithout}
+            onChange={() => dispatch({ type: 'without' })}
           />
           <label htmlFor="without-transplants" className="checkbox-label">
             Без пересадок
@@ -76,7 +72,7 @@ const FilterBar = ({
             id="with-1-transplant"
             className="custom-checkbox"
             checked={withOne}
-            onChange={filterWithOne}
+            onChange={() => dispatch({ type: 'withOne' })}
           />
           <label htmlFor="with-1-transplant" className="checkbox-label">
             1 пересадка
@@ -88,7 +84,7 @@ const FilterBar = ({
             id="with-2-transplant"
             className="custom-checkbox"
             checked={withTwo}
-            onChange={filterWithTwo}
+            onChange={() => dispatch({ type: 'withTwo' })}
           />
           <label htmlFor="with-2-transplant" className="checkbox-label">
             2 пересадки
@@ -100,7 +96,7 @@ const FilterBar = ({
             id="with-3-transplant"
             className="custom-checkbox"
             checked={withThree}
-            onChange={filterWithThree}
+            onChange={() => dispatch({ type: 'withThree' })}
           />
           <label htmlFor="with-3-transplant" className="checkbox-label">
             3 пересадки
@@ -111,17 +107,4 @@ const FilterBar = ({
   )
 }
 
-const mapStateToProps = (state) => ({
-  all: state.all,
-  without: state.without,
-  withOne: state.withOne,
-  withTwo: state.withTwo,
-  withThree: state.withThree,
-})
-
-// const mapDispatchToProps=(dispatch)=>{
-//   return bindActionCreators(actions,dispatch)
-
-// }
-
-export default connect(mapStateToProps, actions)(FilterBar)
+export default FilterBar

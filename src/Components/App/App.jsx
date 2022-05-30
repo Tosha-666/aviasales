@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import './App.scss'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
+import API from '../../api'
 import { Tabs } from '../Tabs'
 import { FilterBar } from '../FiltersBar'
 import { TicketList } from '../TicketList'
-import * as actions from '../../actions'
 
-const App = ({ ticketsLoaded }) => {
+const App = () => {
   App.defaultProps = {
     ticketsLoaded: () => {},
   }
@@ -16,9 +16,65 @@ const App = ({ ticketsLoaded }) => {
     ticketsLoaded: PropTypes.func,
   }
 
+  const dispatch = useDispatch()
+  const ticketsLoaded = () => {
+    return (dispatch) => {
+      dispatch({ type: 'LOADING', payload: 'loading' })
+      API.get('search').then((res) => {
+        const searchId = res.data.searchId
+        let iterrateNumber = 10
+        let tickets = []
+        const getTickets = (requireId) => {
+          API.get(`tickets?searchId=${requireId}`)
+            .then((res) => {
+              if (res.status === 200) {
+                if (res.data.stop === false) {
+                  tickets.push(...res.data.tickets)
+                  dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: tickets })
+                  getTickets(searchId)
+                }
+                if (res.data.stop === true) {
+                  tickets.push(...res.data.tickets)
+                  dispatch({ type: 'LOADING', payload: 'succeed' })
+                  dispatch({ type: 'FETCH_TICKETS_SUCCESS', payload: tickets })
+                }
+              }
+            })
+            .catch((err) => {
+              if (err.message === 'Network Error') {
+                dispatch({
+                  type: 'FETCH_TICKETS_FAILURE',
+                  payload: err.message,
+                })
+                dispatch({ type: 'LOADING', payload: 'failed' }) //
+              } else if (err.response.status === 500) {
+                if (iterrateNumber > 0) {
+                  iterrateNumber -= 1
+                  getTickets(searchId)
+                } else {
+                  dispatch({
+                    type: 'FETCH_TICKETS_FAILURE',
+                    payload: 'Failed to load tickets',
+                  })
+                  dispatch({ type: 'LOADING', payload: 'failed' }) //
+                }
+              } else if (err.response.status === 404) {
+                dispatch({
+                  type: 'FETCH_TICKETS_FAILURE',
+                  payload: err.message,
+                })
+                dispatch({ type: 'LOADING', payload: 'failed' }) //
+              }
+            })
+        }
+        getTickets(searchId)
+      })
+    }
+  }
+
   useEffect(() => {
-    ticketsLoaded()
-  }, [ticketsLoaded])
+    dispatch(ticketsLoaded())
+  }, [dispatch])
 
   return (
     <main className="container">
@@ -34,4 +90,4 @@ const App = ({ ticketsLoaded }) => {
   )
 }
 
-export default connect(null, actions)(App)
+export default App

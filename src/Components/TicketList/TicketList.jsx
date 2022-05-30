@@ -1,29 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Alert } from 'antd'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Ticket } from '../Ticket'
 import { Spinner } from '../Spinner'
 import './TicketList.scss'
-import * as actions from '../../actions'
 
-const TicketList = (
-  {
-    // tickets,
-    // al,
-    // zero,
-    // one,
-    // two,
-    // three,
-    // load,
-    // tab,
-    // count,
-    // showMore,
-    // err,
-    // errorIndicator,
-  }
-) => {
+const TicketList = () => {
   TicketList.defaultProps = {
     tickets: [],
 
@@ -148,21 +132,5 @@ const TicketList = (
     </div>
   )
 }
-// const mapStateToProps = (state) => {
-//   return {
-//     tickets: Object.assign([], state.tickets),
-//     load: state.loadingStatus,
-//     // load: state.loading,
-//     al: state.all,
-//     one: state.withOne,
-//     two: state.withTwo,
-//     three: state.withThree,
-//     zero: state.without,
-//     tab: state.filterTab,
-//     count: state.counter,
-//     err: state.error,
-//     errorIndicator: state.errorIndicator,
-//   }
-// }
+
 export default TicketList
-// connect(mapStateToProps, actions)(TicketList)
