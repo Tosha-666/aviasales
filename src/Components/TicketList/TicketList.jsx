@@ -29,7 +29,7 @@ const TicketList = () => {
 
   const dispatch = useDispatch()
 
-  const tickets = useSelector((state) => state.tickets)
+  const tickets = useSelector((state) => Object.assign([], state.tickets))
   const al = useSelector((state) => state.all)
   const zero = useSelector((state) => state.without)
   const one = useSelector((state) => state.withOne)
